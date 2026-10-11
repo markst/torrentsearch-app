@@ -87,6 +87,15 @@ android {
         resources.excludes += "DebugProbesKt.bin"
         jniLibs.keepDebugSymbols.add("**/*.so")
     }
+
+    testOptions {
+        unitTests.all {
+            // Size formatting uses the default locale; keep fixture expectations
+            // ("1.40 GB") independent of the developer's machine locale.
+            it.systemProperty("user.language", "en")
+            it.systemProperty("user.country", "US")
+        }
+    }
 }
 
 room {
